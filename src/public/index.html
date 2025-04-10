@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Figurinhas</title>
+</head>
+<body>
+  <h1>Envie uma imagem para virar figurinha!</h1>
+  <form action="/figurinha" method="POST" enctype="multipart/form-data">
+    <input type="file" name="imagem" accept="image/*" required />
+    <button type="submit">Gerar Figurinha</button>
+  </form>
+</body>
+</html>
