@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Figurinha</title>
+</head>
+<body>
+  <h2>Envie sua imagem</h2>
+  <form action="/enviar-figurinha" method="POST" enctype="multipart/form-data">
+    <label>Imagem:</label>
+    <input type="file" name="imagem" required><br><br>
+
+    <label>Número do WhatsApp (com DDI):</label>
+    <input type="text" name="numero" placeholder="+5599999999999" required><br><br>
+
+    <button type="submit">Gerar Figurinha</button>
+  </form>
+</body>
+</html>

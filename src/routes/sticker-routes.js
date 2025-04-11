@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const app = express();
 const router = express.Router();
+app.use(express.static('public'));
 
 router.get("/", (req,res) => {
     try {
@@ -36,5 +37,24 @@ router.post("/figurinha", upload.single("imagem"), async(req,res) => {
         res.status(500).send("Erro ao criar figurinha")
     }
 })
+
+app.post('/enviar-figurinha', upload.single('imagem'), async (req, res) => {
+    const numero = req.body.numero + '@c.us';
+    const imgPath = req.file.path;
+  
+    try {
+      const stickerPath = await sendFigurinha(imgPath);
+      const media = require('whatsapp-web.js').MessageMedia.fromFilePath(stickerPath);
+      await client.sendMessage(numero, media, { sendMediaAsSticker: true });
+  
+      fs.unlinkSync(imgPath);
+      fs.unlinkSync(stickerPath);
+  
+      res.send('<h3>✅ Figurinha enviada com sucesso pro WhatsApp!</h3><a href="/">Voltar</a>');
+    } catch (e) {
+      console.error('Erro ao gerar figurinha:', e.message);
+      res.status(500).send('❌ Erro ao gerar figurinha.');
+    }
+  });
 
 module.exports = router
