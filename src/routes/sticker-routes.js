@@ -14,6 +14,9 @@ router.get("/", (req,res) => {
         res.status(500).send("error")
     }
 })
+
+//expect a file path and string with the imagem source
+// locate the source path pls 
 router.post("/figurinha", upload.single("imagem"), async(req,res) => {
     const inputPath = req.file.path;
     const outputPath = `src/figurinhas/${Date.now().webp}`
