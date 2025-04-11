@@ -7,6 +7,8 @@ const sharp = require('sharp');
 const path = require('path');
 require("dotenv").config()
 
+const modoFigurinha = new Set();
+
 const client = new Client({
   authStrategy: new LocalAuth()
 });
@@ -71,5 +73,19 @@ client.on('message', async message => {
     }
   }
 });
+
+client.on("message", async message => {
+  const { from, body} = message;
+
+  if(body.toLocaleLowerCase() === "/figurinha") {
+    modoFigurinha.add(from);
+    return message.reply('👀 Envia a imagem que eu transformo em figurinha!');
+  }
+
+  if(message.hasMedia && modoFigurinha.has(from)) {
+    modoFigurinha.delete(from) // consome o comando
+    // segue o mesmo fluxo de remover fundo + enviar figurinha
+  }
+})
 
 client.initialize();
